@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+service PubSub {
+    rpc Subscribe (SubscribeRequest) returns (stream Message);
+    rpc Publish (Message) returns (PublishResponse);
+}
+
+message SubscribeRequest {
+    string name = 1;
+}
+
+message Message {
+    string name = 1;
+    string data = 2;
+}
+
+enum PublishResponseStatus {
+    VOID = 0;
+    SUCCEED = 1;
+    NOT_FOUND = 2;
+    SERVER_ERROR = 3;
+}
+
+message PublishResponse {
+    PublishResponseStatus status = 1;
+}
